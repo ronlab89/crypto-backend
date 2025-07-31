@@ -7,10 +7,14 @@ import { RegisterDto } from './dto/register-auth.dto';
 import { LoginDto } from './dto/login-auth.dto';
 import { UsersService } from 'src/users/users.service';
 import * as bcryptjs from 'bcryptjs';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly jwtService: JwtService,
+  ) {}
 
   async register({ password, email, name, lastName }: RegisterDto) {
     const user = await this.usersService.findOneByEmail(email);
@@ -48,7 +52,12 @@ export class AuthService {
       throw new UnauthorizedException('Contraseña inválida');
     }
 
+    const payload = { email: user.email };
+
+    const token = await this.jwtService.signAsync(payload);
+
     return {
+      token: token,
       user: {
         name: user.name,
         lastName: user.lastName,
