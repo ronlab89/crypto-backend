@@ -67,4 +67,10 @@ export class AuthService {
       },
     };
   }
+
+  logout() {
+    return {
+      message: 'Sesión cerrada exitosamente',
+    };
+  }
 }
