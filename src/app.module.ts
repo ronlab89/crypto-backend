@@ -5,6 +5,10 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { CoinmarketModule } from './coinmarket/coinmarket.module';
+import { PriceHistoryModule } from './price-history/price-history.module';
+import { CryptosService } from './cryptos/cryptos.service';
+import { CryptosModule } from './cryptos/cryptos.module';
 
 @Module({
   imports: [
@@ -21,8 +25,11 @@ import { AuthModule } from './auth/auth.module';
     }),
     UsersModule,
     AuthModule,
+    CoinmarketModule,
+    PriceHistoryModule,
+    CryptosModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, CryptosService],
 })
 export class AppModule {}

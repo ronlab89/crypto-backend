@@ -1,7 +1,9 @@
+import { UserCrypto } from 'src/user-cryptos/entities/user-crypto.entity';
 import {
   Column,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -30,4 +32,7 @@ export class User {
 
   @DeleteDateColumn({ nullable: true })
   deletedAt: Date;
+
+  @OneToMany(() => UserCrypto, (uc) => uc.user)
+  cryptos: UserCrypto[];
 }

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import {
   Controller,
   Post,
@@ -35,6 +34,7 @@ export class AuthController {
     return req.user;
   }
 
+  @HttpCode(HttpStatus.OK)
   @Post('logout')
   @UseGuards(AuthGuard)
   logout() {

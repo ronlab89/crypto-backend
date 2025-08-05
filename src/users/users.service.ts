@@ -18,4 +18,10 @@ export class UsersService {
   async findOneByEmail(email: string) {
     return await this.userRepository.findOneBy({ email });
   }
+
+  async findAllWithCryptos(): Promise<User[]> {
+    return this.userRepository.find({
+      relations: ['cryptos', 'cryptos.crypto'],
+    });
+  }
 }
